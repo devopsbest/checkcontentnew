@@ -33,25 +33,23 @@ class Content:
         # level = level_http.get_levels()[]
         level = [20001082]
         print(level)
-        #writer = pd.ExcelWriter('%s_activity.xlsx' % (PRODUCT))
-        excel_file = '%s_activity.xlsx' % (PRODUCT)
-        for i in range(len(level)):
-            result = level_http.get_activity(level[i])
-            get_ids = pd.DataFrame(result)
-            get_ids.to_excel(excel_file, "%d" % (i))
-
-        # if not os.path.exists('%s_activity.xlsx' % (PRODUCT)):
-        #
-        #
-        #
-        # else:
-        #     pass
+        
+        if not os.path.exists('%s_activity.xlsx' % (PRODUCT)):
+            writer = pd.ExcelWriter('%s_activity.xlsx' % (PRODUCT)
+            for i in range(len(level)):
+                result = level_http.get_activity(level[i])
+                get_ids = pd.DataFrame(result)
+                get_ids.to_excel(writer, "%d" % (i))
+            writer.save()
+  
+        else:
+             pass
 
     @Test()
     def check_content(self):
         if os.path.exists("%s_activity.xlsx" % (PRODUCT)):
             for i in range(2):
-                id_reader = pd.read_excel("%s_activity.xlsx" % (PRODUCT), sheetname=[i], index_col=None)
+                id_reader = pd.read_excel("%s_activity.xlsx" % (PRODUCT), sheet_name=[i], index_col=None)
 
                 level_table = id_reader[i]
 
